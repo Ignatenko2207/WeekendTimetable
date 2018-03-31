@@ -1,11 +1,6 @@
 package org.itstep.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
-public class User {
+public class Teacher {
 
 	private String login;
 	
@@ -16,6 +11,5 @@ public class User {
 	private String secondName;
 	
 	private UserRole role;
-	
-	private Group group;
+	 
 }
