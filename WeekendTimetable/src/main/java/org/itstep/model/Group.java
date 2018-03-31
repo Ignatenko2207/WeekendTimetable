@@ -12,4 +12,12 @@ public class Group {
 	private String course;
 	
 	private String specialization;
+	
+	public Group (String name,String course,String specialization)
+	{
+		this.name = name;
+		this.course = course;
+		this.specialization = specialization;
+	}
+	
 }
