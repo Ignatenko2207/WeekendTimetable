@@ -11,7 +11,7 @@ public class Lesson {
 	
 	private Subject subject;
 	
-	private Student teacher;
+	private Teacher teacher;
 	
 	private Group group;
 	
