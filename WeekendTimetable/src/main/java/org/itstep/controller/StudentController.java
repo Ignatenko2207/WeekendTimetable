@@ -1,7 +1,8 @@
 package org.itstep.controller;
 
 import org.itstep.model.Lesson;
-import org.itstep.service.LessonService;
+import org.itstep.model.Student;
+import org.itstep.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,34 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(path = "/lesson")
-public class LessonController {
+@RequestMapping(path = "/student")
+public class StudentController {
 
 	@Autowired
-	LessonService lessonService;
+	StudentService studentService;
 	
 	@PostMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}  )
-	ResponseEntity<Lesson> save(@RequestParam Lesson lesson) {
-		if(lessonService.save(lesson) != null) {
-			return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
+	ResponseEntity<Student> save(@RequestParam Student student) {
+		if(studentService.save(student) != null) {
+			return new ResponseEntity<Student>(student, HttpStatus.OK);
 		}
-		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Lesson> update(@RequestParam Lesson lesson) {
-		if(lessonService.update(lesson) != null) {
-			return new ResponseEntity<Lesson>(HttpStatus.OK);
+	ResponseEntity<Student> update(@RequestParam Student student) {
+		if(studentService.update(student) != null) {
+			return new ResponseEntity<Student>(HttpStatus.OK);
 		}
-		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping( path = "/get-one", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Lesson> getOne(@RequestParam Integer id) {
-		Lesson lesson = lessonService.get(id);
-		if( lesson != null) {
-			return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
+	ResponseEntity<Student> getOne(@RequestParam String login) {
+		Student student = studentService.get(login);
+		if( student != null) {
+			return new ResponseEntity<Student>(student, HttpStatus.OK);
 		}
-		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
 	}
 }
