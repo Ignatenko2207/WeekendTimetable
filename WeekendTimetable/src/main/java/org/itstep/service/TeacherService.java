@@ -11,7 +11,7 @@ public interface TeacherService {
 	
 	Teacher update(Teacher teacher);
 	
-	Teacher get(Teacher teacher);
+	Teacher get(String login);
 	
 	List<Teacher> findAllBySubject(Subject subject);
 	
