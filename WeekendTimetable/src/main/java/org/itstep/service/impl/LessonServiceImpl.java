@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LessonServiceImpl implements LessonService{
 
-	@Autowired
+	@Autowired(required = false)
 	LessonDAO lessonDao;
 	
 	public Lesson save(Lesson lesson) {

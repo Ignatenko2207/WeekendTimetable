@@ -5,22 +5,17 @@ import java.util.List;
 import org.itstep.dao.TeacherDAO;
 import org.itstep.model.Subject;
 import org.itstep.model.Teacher;
+import org.itstep.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class TeacherServiceImpl {
+@Service
+public class TeacherServiceImpl implements TeacherService{
 	
-	@Autowired
+	@Autowired(required = false)
 	TeacherDAO TeacherDao;
 	
 	public Teacher save(Teacher teacher)
-	{
-		if(TeacherDao.getOne(teacher.getLogin()) == null) {
-			return TeacherDao.save(teacher);
-		}
-		return null;
-	}
-	
-	public Teacher upadate(Teacher teacher) 
 	{
 		if(TeacherDao.getOne(teacher.getLogin()) == null) {
 			return TeacherDao.save(teacher);
@@ -39,5 +34,12 @@ public class TeacherServiceImpl {
 	
 	public void delete(String login) {
 		TeacherDao.delete(login);
+	}
+
+	public Teacher update(Teacher teacher) {
+		if(TeacherDao.getOne(teacher.getLogin()) == null) {
+			return TeacherDao.save(teacher);
+		}
+		return null;
 	}
 }
