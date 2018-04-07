@@ -6,9 +6,13 @@ import org.itstep.dao.StudentDAO;
 import org.itstep.model.Group;
 import org.itstep.model.Student;
 import org.itstep.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
+	@Autowired
 	StudentDAO studentDao;
 	
 	public Student save(Student student) {
