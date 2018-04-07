@@ -1,5 +1,13 @@
 package org.itstep.model;
 
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +17,12 @@ import lombok.Setter;
 @Table( name = "subjects")
 public class Subject {
 
-	private static Long DURATION = 100 * 60 * 90L; 
-	
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "subject_id")
 	private Integer Id;
-	@ManyToOne()
+	 
+	@Column( name = "subject_name")
 	private String name;
 
 }
