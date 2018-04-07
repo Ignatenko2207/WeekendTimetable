@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeacherServiceImpl implements TeacherService{
 	
-	@Autowired(required = false)
+	@Autowired
 	TeacherDAO TeacherDao;
 	
 	public Teacher save(Teacher teacher)
