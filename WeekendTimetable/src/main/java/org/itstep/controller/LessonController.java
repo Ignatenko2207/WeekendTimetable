@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,7 +23,7 @@ public class LessonController {
 	LessonService lessonService;
 	
 	@PostMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}  )
-	ResponseEntity<Lesson> save(@RequestParam Lesson lesson) {
+	ResponseEntity<Lesson> save(@RequestBody Lesson lesson) {
 		if(lessonService.save(lesson) != null) {
 			return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
 		}
@@ -29,7 +31,7 @@ public class LessonController {
 	}
 	
 	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Lesson> update(@RequestParam Lesson lesson) {
+	ResponseEntity<Lesson> update(@RequestBody Lesson lesson) {
 		if(lessonService.update(lesson) != null) {
 			return new ResponseEntity<Lesson>(HttpStatus.OK);
 		}
@@ -37,11 +39,17 @@ public class LessonController {
 	}
 	
 	@GetMapping( path = "/get-one", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Lesson> getOne(@RequestParam Integer id) {
+	ResponseEntity<Lesson> getOne(@RequestBody Integer id) {
 		Lesson lesson = lessonService.get(id);
 		if( lesson != null) {
 			return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
 		}
 		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@DeleteMapping
+	ResponseEntity delete(@RequestBody Integer id) {
+		lessonService.delete(id);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }
