@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,7 +22,7 @@ public class StudentController {
 	StudentService studentService;
 	
 	@PostMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}  )
-	ResponseEntity<Student> save(@RequestParam Student student) {
+	ResponseEntity<Student> save(@RequestBody Student student) {
 		if(studentService.save(student) != null) {
 			return new ResponseEntity<Student>(student, HttpStatus.OK);
 		}
@@ -29,7 +30,7 @@ public class StudentController {
 	}
 	
 	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Student> update(@RequestParam Student student) {
+	ResponseEntity<Student> update(@RequestBody Student student) {
 		if(studentService.update(student) != null) {
 			return new ResponseEntity<Student>(HttpStatus.OK);
 		}
@@ -37,7 +38,7 @@ public class StudentController {
 	}
 	
 	@GetMapping( path = "/get-one", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	ResponseEntity<Student> getOne(@RequestParam String login) {
+	ResponseEntity<Student> getOne(@RequestBody String login) {
 		Student student = studentService.get(login);
 		if( student != null) {
 			return new ResponseEntity<Student>(student, HttpStatus.OK);
