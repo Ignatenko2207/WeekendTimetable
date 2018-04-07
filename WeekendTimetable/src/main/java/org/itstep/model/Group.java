@@ -19,5 +19,4 @@ public class Group {
 		this.course = course;
 		this.specialization = specialization;
 	}
-	
 }
