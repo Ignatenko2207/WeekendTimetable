@@ -1,6 +1,5 @@
 package org.itstep.controller;
 
-import org.itstep.model.Lesson;
 import org.itstep.model.Student;
 import org.itstep.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
