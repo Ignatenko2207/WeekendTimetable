@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,21 +24,27 @@ public class Lesson {
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "lesson_id")
+	@JsonProperty
 	private Integer id;
 	
 	@ManyToOne( targetEntity = Subject.class )
+	@JsonProperty
 	private Subject subject;
 	
 	@ManyToOne( targetEntity = Teacher.class )
+	@JsonProperty
 	private Teacher teacher;
 	
 	@ManyToOne( targetEntity = Group.class )
+	@JsonProperty
 	private Group group;
 	
 	@Column( name = "cabinet")
+	@JsonProperty
 	private String cabinet;
 	
 	@Column( name = "start_time")
+	@JsonProperty
 	private Long startTime;
 	
 }
