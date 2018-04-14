@@ -18,7 +18,7 @@ public class LessonDAO {
 	@Autowired
 	HibernateUtil hiber;
 
-	Lesson save(Lesson lesson) {
+	public Lesson save(Lesson lesson) {
 
 		if (get(lesson.getId()) == null) {
 
@@ -37,7 +37,7 @@ public class LessonDAO {
 		return null;
 	}
 
-	Lesson update(Lesson lesson) {
+	public Lesson update(Lesson lesson) {
 
 		if (get(lesson.getId()) != null) {
 
@@ -56,7 +56,7 @@ public class LessonDAO {
 		return null;
 	}
 
-	Lesson get(Integer id) {
+	public Lesson get(Integer id) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
@@ -71,7 +71,7 @@ public class LessonDAO {
 		return lessonFromDB;
 	}
 
-	void delete(Lesson lesson) {
+	public void delete(Lesson lesson) {
 		
 			Session session = hiber.getSessionFactory().openSession();
 
@@ -86,7 +86,7 @@ public class LessonDAO {
 		
 	}
 
-	List<Lesson> findAllByStartTime(Long startPeriod, Long endPeriod) {
+	public List<Lesson> findAllByStartTime(Long startPeriod, Long endPeriod) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
@@ -108,7 +108,7 @@ public class LessonDAO {
 		return lessonsFromDB;
 	}
 
-	List<Lesson> findAllBySubject(Subject subject) {
+	public List<Lesson> findAllBySubject(Subject subject) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
