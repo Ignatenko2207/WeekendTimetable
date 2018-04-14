@@ -31,7 +31,7 @@ public class StudentController {
 		return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	ResponseEntity<Student> update(@RequestBody Student student) {
 		if(studentService.update(student) != null) {
 			return new ResponseEntity<Student>(HttpStatus.OK);
