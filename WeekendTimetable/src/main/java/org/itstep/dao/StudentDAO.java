@@ -11,7 +11,6 @@ import org.itstep.model.Lesson;
 import org.itstep.model.Student;
 import org.itstep.util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -88,7 +87,7 @@ public class StudentDAO{
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createNativeQuery("SELECT * FROM students WHERE group_name = :group_nm",
+		Query query = session.createNativeQuery("SELECT * FROM students WHERE group_group_name = :group_nm",
 				Lesson.class);
 
 		query.setParameter("group_nm", group.getName());
