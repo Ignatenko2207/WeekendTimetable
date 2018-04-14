@@ -2,7 +2,6 @@ package org.itstep.dao;
 
 import java.util.List;
 
-import javax.security.auth.Subject;
 import javax.transaction.Transaction;
 import javax.websocket.Session;
 import org.itstep.model.Subject;
