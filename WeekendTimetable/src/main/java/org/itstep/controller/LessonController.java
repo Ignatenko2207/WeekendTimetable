@@ -30,7 +30,7 @@ public class LessonController {
 		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+	@PutMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
 	ResponseEntity<Lesson> update(@RequestBody Lesson lesson) {
 		if(lessonService.update(lesson) != null) {
 			return new ResponseEntity<Lesson>(HttpStatus.OK);
