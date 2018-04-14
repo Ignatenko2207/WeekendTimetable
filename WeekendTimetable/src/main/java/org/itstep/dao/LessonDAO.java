@@ -92,7 +92,7 @@ public class LessonDAO {
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createNativeQuery("SELECT * FROM lessons WHERE start_time> :st_time AND start_time< :end_time",
+		Query query = session.createNativeQuery("SELECT * FROM LESSONS WHERE START_TIME> :st_time AND START_TIME< :end_time",
 				Lesson.class);
 
 		query.setParameter("st_time", startPeriod);
@@ -114,7 +114,7 @@ public class LessonDAO {
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createNativeQuery("SELECT * FROM lessons WHERE subject_id = :sub_id",
+		Query query = session.createNativeQuery("SELECT * FROM LESSONS WHERE SUBJECT_SUBJECT_ID = :sub_id",
 				Lesson.class);
 
 		query.setParameter("sub_id", subject.getId());

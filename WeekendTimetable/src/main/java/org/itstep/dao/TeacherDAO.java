@@ -90,9 +90,9 @@ public class TeacherDAO {
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createNativeQuery("SELECT * FROM teachers WHERE subject = : subj");
+		Query query = session.createNativeQuery("SELECT * FROM teachers WHERE SUBJECT_SUBJECT_ID = : subj");
 
-		query.setParameter("subj", subject);
+		query.setParameter("subj", subject.getId());
 
 		List<Teacher> teacherFromDB = (List<Teacher>) session.beginTransaction();
 
