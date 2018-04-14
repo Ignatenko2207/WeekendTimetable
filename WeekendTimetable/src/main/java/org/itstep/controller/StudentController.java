@@ -1,5 +1,6 @@
 package org.itstep.controller;
 
+import org.itstep.model.Lesson;
 import org.itstep.model.Student;
 import org.itstep.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,10 @@ public class StudentController {
 		}
 		return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
 	}
-	
+	@DeleteMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+	ResponseEntity delete(@RequestBody Student student) {
+		studentService.delete(student);
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 }
