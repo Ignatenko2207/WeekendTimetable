@@ -2,7 +2,6 @@ package org.itstep.dao;
 
 import java.util.List;
 
-import javax.security.auth.Subject;
 import javax.transaction.Transaction;
 import javax.websocket.Session;
 import org.itstep.model.Subject;
@@ -40,7 +39,7 @@ public class SubjectDAO {
 		}
 		return null;
 	}
-	Subject uppdate(Subject subject) {
+	Subject update(Subject subject) {
 		
 		if(get(subject.getId()) != null )
 		{
@@ -56,6 +55,7 @@ public class SubjectDAO {
 			
 			return subject;
 		}
+		return null;
 	}
 	
 	Subject get(Integer id) {
