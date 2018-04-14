@@ -47,9 +47,9 @@ public class LessonController {
 		return new ResponseEntity<Lesson>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@DeleteMapping
-	ResponseEntity delete(@RequestBody Integer id) {
-		lessonService.delete(id);
+	@DeleteMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+	ResponseEntity delete(@RequestBody Lesson lesson) {
+		lessonService.delete(lesson);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

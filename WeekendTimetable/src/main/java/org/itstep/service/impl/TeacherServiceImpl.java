@@ -17,7 +17,7 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	public Teacher save(Teacher teacher)
 	{
-		if(TeacherDao.getOne(teacher.getLogin()) == null) {
+		if(TeacherDao.get(teacher.getLogin()) == null) {
 			return TeacherDao.save(teacher);
 		}
 		return null;
@@ -25,19 +25,19 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	public Teacher get(String login)
 	{
-		return TeacherDao.getOne(login);
+		return TeacherDao.get(login);
 	}
 	
 	public List<Teacher> findAllBySubject(Subject subject){
 		return TeacherDao.findAllBySubject(subject);
 	}
 	
-	public void delete(String login) {
-		TeacherDao.delete(login);
+	public void delete(Teacher teacher) {
+		TeacherDao.delete(teacher);
 	}
 
 	public Teacher update(Teacher teacher) {
-		if(TeacherDao.getOne(teacher.getLogin()) == null) {
+		if(TeacherDao.get(teacher.getLogin()) == null) {
 			return TeacherDao.save(teacher);
 		}
 		return null;

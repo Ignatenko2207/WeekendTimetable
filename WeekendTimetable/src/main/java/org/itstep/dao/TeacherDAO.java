@@ -18,7 +18,7 @@ public class TeacherDAO {
 	@Autowired
 	HibernateUtil hiber;
 
-	Teacher save(Teacher teacher) {
+	public Teacher save(Teacher teacher) {
 		if (get(teacher.getLogin()) == null) {
 			Session session = hiber.getSessionFactory().openSession();
 
@@ -36,7 +36,7 @@ public class TeacherDAO {
 		return null;
 	}
 
-	Teacher update(Teacher teacher) {
+	public Teacher update(Teacher teacher) {
 
 		if (get(teacher.getLogin()) != null) {
 			Session session = hiber.getSessionFactory().openSession();
@@ -56,7 +56,7 @@ public class TeacherDAO {
 
 	}
 
-	Teacher get(String login) {
+	public Teacher get(String login) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
@@ -71,7 +71,7 @@ public class TeacherDAO {
 		return teacherFromDB;
 	}
 
-	void delete(Teacher teacher) {
+	public void delete(Teacher teacher) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
@@ -84,7 +84,7 @@ public class TeacherDAO {
 		session.close();
 	}
 
-	List<Teacher> findAllBySubject(Subject subject) {
+	public List<Teacher> findAllBySubject(Subject subject) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
