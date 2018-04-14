@@ -15,5 +15,5 @@ public interface TeacherService {
 	
 	List<Teacher> findAllBySubject(Subject subject);
 	
-	void delete(String login);
+	void delete(Teacher teacher);
 }
