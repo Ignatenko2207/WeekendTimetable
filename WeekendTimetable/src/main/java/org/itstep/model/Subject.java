@@ -4,8 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +17,15 @@ import lombok.Setter;
 @Entity
 @Table( name = "subjects")
 public class Subject {
-	@javax.persistence.Id
+
+	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "subject_id")
+	@JsonProperty
 	private Integer Id;
 	 
 	@Column( name = "subject_name")
+	@JsonProperty
 	private String name;
 
 }
