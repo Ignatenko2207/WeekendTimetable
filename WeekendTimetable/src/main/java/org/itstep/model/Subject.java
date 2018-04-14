@@ -1,6 +1,5 @@
 package org.itstep.model;
 
-import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +15,7 @@ import lombok.Setter;
 @Entity
 @Table( name = "subjects")
 public class Subject {
-
-	@Id
+	@javax.persistence.Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "subject_id")
 	private Integer Id;
