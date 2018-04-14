@@ -20,7 +20,7 @@ public class StudentDAO{
 	@Autowired
 	HibernateUtil hiber;
 	
-	Student save(Student student) {
+	public Student save(Student student) {
 	
 		if( get(student.getLogin()) == null ) {
 			
@@ -38,7 +38,7 @@ public class StudentDAO{
 		return null;
 	}
 	
-	Student update(Student student) {
+	public Student update(Student student) {
 		
 		if( get(student.getLogin()) != null ) {
 			
@@ -56,7 +56,7 @@ public class StudentDAO{
 		return null;
 	}
 	
-	Student get(String login) {
+	public Student get(String login) {
 		
 		Session session = hiber.getSessionFactory().openSession();
 		
@@ -70,7 +70,7 @@ public class StudentDAO{
 		return studentFromDb;
 	}
 	
-	void delete(Student student) {
+	public void delete(Student student) {
 		
 		Session session = hiber.getSessionFactory().openSession();
 		
@@ -82,16 +82,16 @@ public class StudentDAO{
 		session.close();
 	}
 	
-	List<Student> findAllByGroup(Group group) {
+	public List<Student> findAllByGroup(Group group) {
 		
 		Session session = hiber.getSessionFactory().openSession();
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createNativeQuery("SELECT * FROM students WHERE group_name = :group_name",
+		Query query = session.createNativeQuery("SELECT * FROM students WHERE group_name = :group_nm",
 				Lesson.class);
 
-		query.setParameter("group_name", group.getName());
+		query.setParameter("group_nm", group.getName());
 
 		List<Student> studentFromDB = (List<Student>) session.beginTransaction();
 		
