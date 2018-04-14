@@ -64,10 +64,10 @@ public class TeacherController {
 	}
 	
 	@DeleteMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	void delete(@RequestBody String login)
+	void delete(@RequestBody Teacher teacher)
 	{
-		if(teacherService.get(login) != null) {
-			teacherService.delete(login);
+		if(teacher != null) {
+			teacherService.delete(teacher);
 		}
 			
 	}
