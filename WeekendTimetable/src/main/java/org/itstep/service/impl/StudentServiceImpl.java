@@ -16,29 +16,29 @@ public class StudentServiceImpl implements StudentService {
 	StudentDAO studentDao;
 	
 	public Student save(Student student) {
-		if(studentDao.getOne(student.getLogin()) == null) {
+		if(studentDao.get(student.getLogin()) == null) {
 			return studentDao.save(student);
 		}
 		return null;
 	}
 
 	public Student update(Student student) {
-		if(studentDao.getOne(student.getLogin()) != null) {
+		if(studentDao.get(student.getLogin()) != null) {
 			return studentDao.save(student);
 		}
 		return null;
 	}
 
 	public Student get(String login) {
-		return studentDao.getOne(login);
+		return studentDao.get(login);
 	}
 
 	public List<Student> findAllByGroup(Group group) {
 		return studentDao.findAllByGroup(group);
 	}
 
-	public void delete(String login) {
-		studentDao.delete(login);
+	public void delete(Student student) {
+		studentDao.delete(student);
 	}
 
 }
