@@ -1,7 +1,10 @@
 package org.itstep.dao;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.itstep.model.Group;
 import org.itstep.util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,69 +16,69 @@ public class GroupDAO{
 	@Autowired
 	HibernateUtil hiber;
 
-	Group save(Group group) {
-
-		if (get(group.getName()) == null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.saveOrUpdate(group);
-
-			transaction.commit();
-
-			session.close();
-
-			return group;
-		}
-		return null;
-	}
-
-	Group update(Group group) {
-
-		if (get(group.getName()) != null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.saveOrUpdate(group);
-
-			transaction.commit();
-
-			session.close();
-
-			return group;
-		}
-		return null;
-	}
-
-	Group get(String name) {
+	public Group save(Group group) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		Group groupFromDB = session.get(Group.class, name);
+		session.saveOrUpdate(group);
 
-		transaction.commit();
+		session.getTransaction().commit();
 
 		session.close();
 
-		return groupFromDB;
+		if (getOne(group.getName()) != null) {
+			return group;
+		}
+
+		return null;
 	}
 
-	void delete(Group group) {
+	public Group getOne(String name) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
+
+		Group group = session.get(Group.class, name);
+
+		session.getTransaction().commit();
+
+		session.close();
+
+		return group;
+	}
+
+	public void delete(Group group) {
+		
+		Session session = hiber.getSessionFactory().openSession();
+
+		session.getTransaction().begin();
 
 		session.delete(group);
 
-		transaction.commit();
+		session.getTransaction().commit();
 
 		session.close();
 	}
 	
-	
+	public List<Group> findAllByCourse(String course){
+		
+		Session session = hiber.getSessionFactory().openSession();
+
+		session.getTransaction().begin();
+
+		Query query = session.createNativeQuery("SELECT * FROM GROUPS WHERE COURSE=:cour", Group.class);
+
+		query.setParameter("cour", course);
+		
+		List<Group> groups = query.getResultList();
+		
+		session.getTransaction().commit();
+
+		session.close();
+		
+		return groups;
+	}
 }

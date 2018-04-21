@@ -15,15 +15,21 @@ public class LessonServiceImpl implements LessonService{
 	LessonDAO lessonDao;
 	
 	public Lesson save(Lesson lesson) {
-		return lessonDao.save(lesson);
+		if(lessonDao.getOne(lesson.getId()) == null) {
+			return lessonDao.save(lesson);
+		}
+		return null;
 	}
 
 	public Lesson update(Lesson lesson) {
-		return lessonDao.update(lesson);
+		if(lessonDao.getOne(lesson.getId()) != null) {
+			return lessonDao.save(lesson);
+		}
+		return null;
 	}
 
 	public Lesson get(Integer id) {
-		return lessonDao.get(id);
+		return lessonDao.getOne(id);
 	}
 
 	public List<Lesson> findAllByStartTime(Long startPeriod, Long endPeriod) {
@@ -33,5 +39,4 @@ public class LessonServiceImpl implements LessonService{
 	public void delete(Lesson lesson) {
 		lessonDao.delete(lesson);
 	}
-
 }

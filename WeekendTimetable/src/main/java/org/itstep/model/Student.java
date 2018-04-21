@@ -14,27 +14,26 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table( name = "students")
+@Table( name = "STUDENTS")
 public class Student {
 
 	@Id
-	@Column(name = "login")
+	@Column(name = "LOGIN")
 	@JsonProperty
 	private String login;
 	
-	@Column(name = "password")
+	@Column(name = "PASSWORD")
 	@JsonProperty
 	private String password;
 	
-	@Column(name = "firstname")
+	@Column(name = "FIRS_TNAME")
 	@JsonProperty
 	private String firstName;
 	
-	@Column(name = "secondname")
+	@Column(name = "SECOND_NAME")
 	@JsonProperty
 	private String secondName;
 	
 	@ManyToOne(targetEntity = Group.class)
-	@JsonProperty
 	private Group group;
 }

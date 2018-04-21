@@ -5,99 +5,80 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.itstep.model.Group;
-import org.itstep.model.Lesson;
 import org.itstep.model.Student;
 import org.itstep.util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StudentDAO{
+public class StudentDAO {
 
 	@Autowired
 	HibernateUtil hiber;
-	
+
 	public Student save(Student student) {
-	
-		if( get(student.getLogin()) == null ) {
-			
-			Session session = hiber.getSessionFactory().openSession();
-			
-			Transaction transaction = session.beginTransaction();
-			
-			session.saveOrUpdate(student);
-			transaction.commit();
-			session.close();
-			
-			return student;
-		}
-		
-		return null;
-	}
-	
-	public Student update(Student student) {
-		
-		if( get(student.getLogin()) != null ) {
-			
-			Session session = hiber.getSessionFactory().openSession();
-			
-			Transaction transaction = session.beginTransaction();
-			
-			session.saveOrUpdate(student);
-			transaction.commit();
-			session.close();
-			
-			return student;
-		}
-		
-		return null;
-	}
-	
-	public Student get(String login) {
-		
+
 		Session session = hiber.getSessionFactory().openSession();
-		
-		Transaction transaction = session.beginTransaction();
-		
-		Student studentFromDb = session.get(Student.class, login);
-		
-		transaction.commit();
+
+		session.getTransaction().begin();
+
+		session.saveOrUpdate(student);
+
+		session.getTransaction().commit();
+
 		session.close();
-		
-		return studentFromDb;
+
+		if (getOne(student.getLogin()) != null) {
+			return student;
+		}
+
+		return null;
 	}
-	
+
+	public Student getOne(String login) {
+
+		Session session = hiber.getSessionFactory().openSession();
+
+		session.getTransaction().begin();
+
+		Student student = session.get(Student.class, login);
+
+		session.getTransaction().commit();
+
+		session.close();
+
+		return student;
+	}
+
 	public void delete(Student student) {
 		
 		Session session = hiber.getSessionFactory().openSession();
-		
-		Transaction transaction = session.beginTransaction();
-		
+
+		session.getTransaction().begin();
+
 		session.delete(student);
-		
-		transaction.commit();
+
+		session.getTransaction().commit();
+
 		session.close();
 	}
 	
-	public List<Student> findAllByGroup(Group group) {
-		
+	public List<Student> findAllByGroup(String groupName) {
+
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		Query query = session.createNativeQuery("SELECT * FROM students WHERE group_group_name = :group_nm",
-				Lesson.class);
-
-		query.setParameter("group_nm", group.getName());
-
-		List<Student> studentFromDB = (List<Student>) session.beginTransaction();
+		Query query = session.createNativeQuery("SELECT * FROM STUDENTS WHERE GROUP_GROUP_NAME=:group_name", Student.class);
 		
-		transaction.commit();
+		query.setParameter("group_name", groupName);
+		
+		List<Student> students = query.getResultList();
+				
+		session.getTransaction().commit();
 
 		session.close();
 
-		return studentFromDB;
+		return students;
 	}
 }

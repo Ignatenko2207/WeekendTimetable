@@ -1,7 +1,6 @@
 package org.itstep.dao;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.itstep.model.Subject;
 import org.itstep.util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,67 +12,51 @@ public class SubjectDAO {
 	@Autowired
 	HibernateUtil hiber;
 
-	Subject save(Subject subject) {
-
-		if (get(subject.getId()) == null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.saveOrUpdate(subject);
-
-			transaction.commit();
-
-			session.close();
-
-			return subject;
-		}
-		return null;
-	}
-
-	Subject update(Subject subject) {
-
-		if (get(subject.getId()) != null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.saveOrUpdate(subject);
-
-			transaction.commit();
-
-			session.close();
-
-			return subject;
-		}
-		return null;
-	}
-
-	Subject get(Integer id) {
+	public Subject save(Subject subject) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		Subject subjectFromDB = session.get(Subject.class, id);
+		session.saveOrUpdate(subject);
 
-		transaction.commit();
+		session.getTransaction().commit();
 
 		session.close();
 
-		return subjectFromDB;
+		if (getOne(subject.getName()) != null) {
+			return subject;
+		}
+
+		return null;
 	}
 
-	void delete(Subject id) {
+	public Subject getOne(String name) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		session.delete(id);
+		Subject subject = session.get(Subject.class, name);
 
-		transaction.commit();
+		session.getTransaction().commit();
+
+		session.close();
+
+		return subject;
+	}
+
+	public void delete(Subject subject) {
+		
+		Session session = hiber.getSessionFactory().openSession();
+
+		session.getTransaction().begin();
+
+		session.delete(subject);
+
+		session.getTransaction().commit();
 
 		session.close();
 	}
+
 }

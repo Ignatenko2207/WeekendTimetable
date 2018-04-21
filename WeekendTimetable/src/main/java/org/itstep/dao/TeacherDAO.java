@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.itstep.model.Subject;
 import org.itstep.model.Teacher;
 import org.itstep.util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,87 +17,68 @@ public class TeacherDAO {
 	HibernateUtil hiber;
 
 	public Teacher save(Teacher teacher) {
-		if (get(teacher.getLogin()) == null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.save(teacher);
-
-			transaction.commit();
-
-			session.close();
-
-			return teacher;
-		}
-
-		return null;
-	}
-
-	public Teacher update(Teacher teacher) {
-
-		if (get(teacher.getLogin()) != null) {
-			Session session = hiber.getSessionFactory().openSession();
-
-			Transaction transaction = session.beginTransaction();
-
-			session.saveOrUpdate(teacher);
-
-			transaction.commit();
-
-			session.close();
-
-			return teacher;
-		}
-
-		return null;
-
-	}
-
-	public Teacher get(String login) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		Teacher teacherFromDB = session.get(Teacher.class, login);
+		session.saveOrUpdate(teacher);
 
-		transaction.commit();
+		session.getTransaction().commit();
 
 		session.close();
 
-		return teacherFromDB;
+		if (getOne(teacher.getLogin()) != null) {
+			return teacher;
+		}
+
+		return null;
+	}
+
+	public Teacher getOne(String login) {
+
+		Session session = hiber.getSessionFactory().openSession();
+
+		session.getTransaction().begin();
+
+		Teacher teacher = session.get(Teacher.class, login);
+
+		session.getTransaction().commit();
+
+		session.close();
+
+		return teacher;
 	}
 
 	public void delete(Teacher teacher) {
-
+		
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
 		session.delete(teacher);
 
-		transaction.commit();
+		session.getTransaction().commit();
 
 		session.close();
 	}
 
-	public List<Teacher> findAllBySubject(Subject subject) {
+	public List<Teacher> findAllBySubject(String subName) {
 
 		Session session = hiber.getSessionFactory().openSession();
 
-		Transaction transaction = session.beginTransaction();
+		session.getTransaction().begin();
 
-		Query query = session.createNativeQuery("SELECT * FROM teachers WHERE SUBJECT_SUBJECT_ID = : subj");
-
-		query.setParameter("subj", subject.getId());
-
-		List<Teacher> teacherFromDB = (List<Teacher>) session.beginTransaction();
-
-		transaction.commit();
+		Query query = session.createNativeQuery("SELECT * FROM TEACHERS WHERE SUBJECT_SUB_NAME=:sub_name", Teacher.class);
+		
+		query.setParameter("sub_name", subName);
+		
+		List<Teacher> teachers = query.getResultList();
+				
+		session.getTransaction().commit();
 
 		session.close();
-		
-		return teacherFromDB;
+
+		return teachers;
 	}
 }

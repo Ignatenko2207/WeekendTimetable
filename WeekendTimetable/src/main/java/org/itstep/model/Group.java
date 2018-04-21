@@ -13,19 +13,19 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table( name = "groups" )
+@Table( name = "GROUPS" )
 public class Group {
 
 	@Id
-	@Column( name = "group_name")
+	@Column( name = "GROUP_NAME")
 	@JsonProperty
 	private String name;
 	
-	@Column( name = "course")
+	@Column( name = "COURSE")
 	@JsonProperty
 	private String course;
 	
-	@Column( name = "specialization")
+	@Column( name = "SPECIALIZATION")
 	@JsonProperty
 	private String specialization;
 	
