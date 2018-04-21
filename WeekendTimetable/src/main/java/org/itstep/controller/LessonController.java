@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -53,7 +54,7 @@ public class LessonController {
 	}
 
 	@GetMapping(path = "/get-all-by-time", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<List<Lesson>> getAll(@RequestBody Long start, @RequestBody Long end) {
+	ResponseEntity<List<Lesson>> getAll(@RequestHeader Long start, @RequestHeader Long end) {
 		List<Lesson> lessons = lessonService.findAllByStartTime(start, end);
 		if (lessons != null) {
 			return new ResponseEntity<List<Lesson>>(lessons, HttpStatus.OK);
