@@ -28,12 +28,12 @@ public class SubjectDAOTest {
 	public void testSave() {
 
 		Subject subject = new Subject();
-		subject.setName("Java");
+		subject.setName("Delphi");
 		
 		subjectInDB = subjectDAO.save(subject);
 
 		assertNotNull(subjectInDB);
-		assertEquals("Java", subjectInDB.getName());
+		assertEquals("Delphi", subjectInDB.getName());
 		
 	}
 
