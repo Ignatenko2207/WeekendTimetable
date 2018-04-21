@@ -14,7 +14,6 @@ import org.itstep.model.Subject;
 import org.itstep.model.Teacher;
 import org.itstep.service.LessonService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -35,7 +34,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LessonControllerTest {
 
-	List<Lesson> lessons;
+	List<Lesson> lessons = new ArrayList<Lesson>();
 
 	@Autowired
 	TestRestTemplate restTemplate;
