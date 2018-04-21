@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(path = "/group")
-public class GroupController {
+public class GroupController{
 	
 	@Autowired
 	GroupService groupService;
